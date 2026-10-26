@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minh · Data & Dashboard Developer</title>
+<meta name="description" content="Power BI dashboards, KPI tracking web apps and reporting automation for finance and operations teams.">
+<style>
+  :root{
+    --bg:#f7f8fb; --surface:#ffffff; --text:#14161c; --muted:#5b6170; --line:#e4e7ee;
+    --accent:#1f5eff; --accent-soft:#e8efff; --ok:#13936b; --radius:14px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){ --bg:#0f1117; --surface:#171a22; --text:#eef0f5; --muted:#9aa1b1; --line:#262a35; --accent:#6b93ff; --accent-soft:#1b2540; --ok:#3ccf9a; }
+  }
+  :root[data-theme="dark"]{ --bg:#0f1117; --surface:#171a22; --text:#eef0f5; --muted:#9aa1b1; --line:#262a35; --accent:#6b93ff; --accent-soft:#1b2540; --ok:#3ccf9a; }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+  header{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
+  nav .brand{font-weight:700;letter-spacing:-.01em}
+  nav ul{display:flex;gap:18px;list-style:none;margin:0;padding:0}
+  nav ul a{color:var(--muted);font-size:14px}
+  nav ul a:hover{color:var(--text);text-decoration:none}
+  .lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;font-size:13px}
+  .lang button{border:0;background:transparent;color:var(--muted);padding:5px 12px;cursor:pointer;font:inherit;font-size:13px}
+  .lang button.on{background:var(--accent);color:#fff}
+  @media (max-width:720px){ nav ul{display:none} }
+
+  body [lang="vi"]{display:none}
+  html[data-lang="vi"] body [lang="vi"]{display:revert}
+  html[data-lang="vi"] body [lang="en"]{display:none}
+
+  .hero{padding:72px 0 48px}
+  .hero h1{font-size:clamp(30px,5vw,46px);line-height:1.15;margin:0 0 14px;letter-spacing:-.02em}
+  .hero p.lead{font-size:18px;color:var(--muted);max-width:640px;margin:0 0 24px}
+  .pills{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px;padding:0;list-style:none}
+  .pills li{background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:4px 12px;font-size:13px;font-weight:600}
+  .btn{display:inline-block;background:var(--accent);color:#fff;padding:11px 20px;border-radius:10px;font-weight:600}
+  .btn:hover{text-decoration:none;filter:brightness(1.08)}
+  .btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+
+  section{padding:40px 0}
+  h2{font-size:26px;letter-spacing:-.01em;margin:0 0 6px}
+  .sub{color:var(--muted);margin:0 0 24px}
+
+  .grid{display:grid;gap:16px}
+  .grid.c3{grid-template-columns:repeat(3,1fr)}
+  @media (max-width:820px){ .grid.c3{grid-template-columns:1fr} }
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+  .card h3{margin:0 0 6px;font-size:17px}
+  .card p{margin:0;color:var(--muted);font-size:15px}
+  .card .tag{display:inline-block;font-size:12px;color:var(--ok);font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px}
+
+  .project{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;margin-bottom:22px}
+  .project .meta{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 14px}
+  .project .meta span{font-size:12px;border:1px solid var(--line);border-radius:6px;padding:2px 8px;color:var(--muted)}
+  .project h3{margin:0;font-size:21px}
+  .project .kicker{color:var(--accent);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+  .project ul{margin:0 0 16px;padding-left:20px;color:var(--muted)}
+  .project ul li{margin:4px 0}
+  .shots{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  @media (max-width:720px){ .shots{grid-template-columns:1fr} }
+  figure{margin:0}
+  figure img{width:100%;height:auto;display:block;border-radius:10px;border:1px solid var(--line);background:#fff}
+  figcaption{font-size:13px;color:var(--muted);margin-top:6px}
+  .wide{grid-column:1/-1}
+
+  .pipeline{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:12px 0 16px}
+  @media (max-width:720px){ .pipeline{grid-template-columns:1fr 1fr} }
+  .pipeline div{background:var(--accent-soft);border-radius:10px;padding:12px;font-size:13px;text-align:center}
+  .pipeline div b{display:block;color:var(--accent);font-size:20px;margin-bottom:4px}
+
+  .steps{counter-reset:s;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  @media (max-width:820px){ .steps{grid-template-columns:1fr 1fr} }
+  .steps div{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+  .steps div::before{counter-increment:s;content:counter(s);display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:14px;margin-bottom:10px}
+  .steps h3{font-size:15px;margin:0 0 4px}
+  .steps p{margin:0;color:var(--muted);font-size:14px}
+
+  footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-size:14px}
+  .contact{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+  .note{font-size:13px;color:var(--muted);border-left:3px solid var(--line);padding-left:10px;margin-top:14px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <nav>
+      <div class="brand">Minh · <span lang="en">Data &amp; Dashboards</span><span lang="vi">Dữ liệu &amp; Dashboard</span></div>
+      <ul>
+        <li><a href="#services"><span lang="en">Services</span><span lang="vi">Dịch vụ</span></a></li>
+        <li><a href="#work"><span lang="en">Work</span><span lang="vi">Dự án</span></a></li>
+        <li><a href="#process"><span lang="en">Process</span><span lang="vi">Cách làm việc</span></a></li>
+        <li><a href="#contact"><span lang="en">Contact</span><span lang="vi">Liên hệ</span></a></li>
+      </ul>
+      <div class="lang" role="group" aria-label="Language">
+        <button id="btn-en" class="on" onclick="setLang('en')">EN</button>
+        <button id="btn-vi" onclick="setLang('vi')">VI</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>
+      <span lang="en">I turn messy operational data into dashboards managers actually use.</span>
+      <span lang="vi">Biến dữ liệu vận hành rối rắm thành dashboard mà ban lãnh đạo thực sự dùng.</span>
+    </h1>
+    <p class="lead">
+      <span lang="en">Power BI developer and data analyst. For several years I have been the in-house data person for a management team: weekly and monthly reports, KPI reviews, and the automation that gets those reports out before anyone arrives at the office. I also build the lightweight web tools around the data.</span>
+      <span lang="vi">Chuyên viên phân tích dữ liệu và Power BI. Nhiều năm làm "người giữ số liệu" cho ban lãnh đạo: báo cáo tuần và tháng, rà soát KPI, và các script tự động đẩy báo cáo ra trước giờ làm. Ngoài dashboard, mình xây cả công cụ web gọn nhẹ xung quanh dữ liệu.</span>
+    </p>
+    <ul class="pills">
+      <li>Power BI · DAX</li><li>Excel · Power Query</li><li>Python · Playwright</li><li>React · Next.js</li><li>SQL</li>
+    </ul>
+    <a class="btn" href="#work"><span lang="en">See the work</span><span lang="vi">Xem dự án</span></a>
+    <a class="btn ghost" href="#contact"><span lang="en">Get a quote</span><span lang="vi">Nhận báo giá</span></a>
+  </section>
+
+  <section id="services">
+    <h2><span lang="en">What I can do for you</span><span lang="vi">Mình làm được gì cho bạn</span></h2>
+    <p class="sub"><span lang="en">Fixed-price packages, clear scope, delivered in days not weeks.</span><span lang="vi">Gói giá cố định, phạm vi rõ ràng, giao trong vài ngày.</span></p>
+    <div class="grid c3">
+      <div class="card">
+        <span class="tag"><span lang="en">Most requested</span><span lang="vi">Phổ biến nhất</span></span>
+        <h3><span lang="en">Power BI dashboard</span><span lang="vi">Dashboard Power BI</span></h3>
+        <p><span lang="en">From Excel, CSV, SQL or SharePoint to a clean 1 to 3 page report with a proper data model, DAX measures, slicers and drill-through. Includes a handover video.</span><span lang="vi">Từ Excel, CSV, SQL hay SharePoint thành báo cáo 1 đến 3 trang: mô hình dữ liệu chuẩn, measure DAX, slicer, drill-through. Kèm video hướng dẫn bàn giao.</span></p>
+      </div>
+      <div class="card">
+        <span class="tag"><span lang="en">Save hours weekly</span><span lang="vi">Tiết kiệm giờ mỗi tuần</span></span>
+        <h3><span lang="en">Report automation</span><span lang="vi">Tự động hoá báo cáo</span></h3>
+        <p><span lang="en">Python scripts that log in, set filters, export PDFs and Excel tables, merge files and drop the result where your team needs it, on a schedule.</span><span lang="vi">Script Python tự đăng nhập, đặt bộ lọc, xuất PDF và bảng Excel, gộp file và đẩy kết quả tới đúng nơi, chạy theo lịch.</span></p>
+      </div>
+      <div class="card">
+        <span class="tag"><span lang="en">Internal tools</span><span lang="vi">Công cụ nội bộ</span></span>
+        <h3><span lang="en">KPI &amp; workflow web apps</span><span lang="vi">Web theo dõi KPI &amp; luồng công việc</span></h3>
+        <p><span lang="en">Lightweight React apps for tracking KPIs, tasks and approvals when a spreadsheet is no longer enough and a big system is overkill.</span><span lang="vi">Ứng dụng React gọn nhẹ để theo dõi KPI, task và phê duyệt khi Excel không còn đủ mà hệ thống lớn thì quá nặng.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <h2><span lang="en">Selected work</span><span lang="vi">Dự án tiêu biểu</span></h2>
+    <p class="sub"><span lang="en">Demo builds with synthetic data. Client work stays with the client and is never shown here.</span><span lang="vi">Bản demo dựng trên dữ liệu giả lập. Dự án của khách hàng không bao giờ được đưa lên đây.</span></p>
+
+    <!-- Project 1: Power BI demo -->
+    <article class="project" id="pbi-demo">
+      <div class="kicker">Power BI · DAX</div>
+      <h3><span lang="en">Sales performance dashboard</span><span lang="vi">Dashboard hiệu quả bán hàng</span></h3>
+      <div class="meta"><span>Power BI Desktop</span><span>PBIP / PBIR</span><span>DAX time intelligence</span><span>Star schema</span></div>
+      <ul>
+        <li><span lang="en">Two-page report on a synthetic 3,000-order retail dataset: revenue, profit, margin and orders with year-over-year comparison, monthly trend vs prior year, region and channel splits, product matrix with conditional formatting and a sales-rep leaderboard.</span><span lang="vi">Báo cáo 2 trang trên bộ dữ liệu bán lẻ giả lập 3.000 đơn: doanh thu, lợi nhuận, biên, số đơn so với cùng kỳ, xu hướng tháng so với năm trước, phân rã theo vùng và kênh, ma trận sản phẩm có định dạng điều kiện và bảng xếp hạng nhân viên.</span></li>
+        <li><span lang="en">Shows the way I build every report: a star schema, a dedicated measure table, consistent theme and a "so what" subtitle on every visual.</span><span lang="vi">Thể hiện cách mình xây mọi báo cáo: mô hình sao, bảng measure riêng, theme thống nhất và dòng phụ đề "so what" trên mỗi visual.</span></li>
+      </ul>
+      <div class="shots">
+        <figure><img src="img/pbi-overview.png" alt="Power BI sales overview page" loading="lazy"><figcaption><span lang="en">Page 1: Sales overview.</span><span lang="vi">Trang 1: Tổng quan bán hàng.</span></figcaption></figure>
+        <figure><img src="img/pbi-products.png" alt="Power BI product and sales rep performance page" loading="lazy"><figcaption><span lang="en">Page 2: Product &amp; rep performance.</span><span lang="vi">Trang 2: Hiệu quả sản phẩm &amp; nhân viên.</span></figcaption></figure>
+      </div>
+    </article>
+
+    <!-- Project 2: KPI tracker -->
+    <article class="project">
+      <div class="kicker"><span lang="en">Web app · Next.js 16 · React 19</span><span lang="vi">Web app · Next.js 16 · React 19</span></div>
+      <h3><span lang="en">KPI Tracker for a sales organisation</span><span lang="vi">KPI Tracker cho một bộ phận kinh doanh</span></h3>
+      <div class="meta"><span>Next.js</span><span>TypeScript</span><span>Tailwind</span><span>Recharts</span><span>Framer Motion</span><span>JWT auth</span><span>Netlify</span></div>
+      <ul>
+        <li><span lang="en"><b>Problem:</b> a yearly KPI framework with weighted groups, sub-goals and projects assigned across several teams lived in a spreadsheet that nobody could roll up the same way twice.</span><span lang="vi"><b>Vấn đề:</b> bộ KPI năm với các nhóm có trọng số, mục tiêu con và dự án giao cho nhiều phòng nằm trong một file Excel mà mỗi lần cộng dồn lại ra một số khác.</span></li>
+        <li><span lang="en"><b>Built:</b> a weighted roll-up engine over a 6-level KPI tree, team pages with task-level progress, Gantt and calendar views of deadlines, and role-based editing (admin / team manager). JSON data layer so it runs on free hosting.</span><span lang="vi"><b>Đã xây:</b> engine cộng dồn theo trọng số trên cây KPI 6 cấp, trang từng phòng với tiến độ theo task, Gantt và lịch deadline, phân quyền sửa theo vai trò (admin / trưởng phòng). Lớp dữ liệu JSON để chạy trên hosting miễn phí.</span></li>
+        <li><span lang="en"><b>Result:</b> one number everyone agrees on before the monthly review; progress updates take minutes instead of a half-day of spreadsheet surgery.</span><span lang="vi"><b>Kết quả:</b> một con số mọi người đều đồng ý trước buổi họp tháng; cập nhật tiến độ mất vài phút thay vì nửa ngày vật lộn với Excel.</span></li>
+      </ul>
+      <div class="shots">
+        <figure class="wide"><img src="img/kpi-dashboard-full.png" alt="KPI Tracker dashboard with overall progress, team bars and weight distribution" loading="lazy"><figcaption><span lang="en">Dashboard: overall progress, progress by team, weight split by KPI group.</span><span lang="vi">Dashboard: tiến độ tổng, tiến độ theo phòng, phân bổ trọng số theo nhóm KPI.</span></figcaption></figure>
+        <figure><img src="img/kpi-khoi.png" alt="Hierarchical KPI table with weights and roll-up percentages" loading="lazy"><figcaption><span lang="en">Hierarchical KPI table with weights and roll-up.</span><span lang="vi">Bảng KPI phân cấp với trọng số và cộng dồn.</span></figcaption></figure>
+        <figure><img src="img/kpi-phong-vhkd.png" alt="Team task list with status, progress and due dates" loading="lazy"><figcaption><span lang="en">Team view: tasks, status, progress, due dates.</span><span lang="vi">Màn hình phòng: task, trạng thái, tiến độ, hạn.</span></figcaption></figure>
+        <figure><img src="img/kpi-gantt.png" alt="Gantt chart of KPI tasks" loading="lazy"><figcaption><span lang="en">Gantt view grouped by KPI hierarchy.</span><span lang="vi">Gantt theo cây KPI.</span></figcaption></figure>
+        <figure><img src="img/kpi-schedule.png" alt="Calendar of task deadlines" loading="lazy"><figcaption><span lang="en">Deadline calendar with team filter.</span><span lang="vi">Lịch deadline, lọc theo phòng.</span></figcaption></figure>
+      </div>
+    </article>
+
+    <!-- Project 3: Power BI export automation -->
+    <article class="project">
+      <div class="kicker"><span lang="en">Automation · Python · Playwright</span><span lang="vi">Tự động hoá · Python · Playwright</span></div>
+      <h3><span lang="en">Scheduled Power BI report exports, zero clicks</span><span lang="vi">Xuất báo cáo Power BI theo lịch, không cần bấm chuột</span></h3>
+      <div class="meta"><span>Python</span><span>Playwright</span><span>Power BI Service</span><span>openpyxl</span><span>Headless, scheduled</span></div>
+      <ul>
+        <li><span lang="en"><b>Problem:</b> a reporting team opened the same Power BI reports every morning, set the date filter to month-to-date, exported a PDF per business unit plus several detail tables to Excel, and merged everything for different recipients. Close to an hour of clicking, with the occasional wrong filter.</span><span lang="vi"><b>Vấn đề:</b> mỗi sáng một nhóm báo cáo mở cùng mấy báo cáo Power BI, chỉnh bộ lọc ngày về luỹ kế tháng, xuất một PDF cho mỗi đơn vị cộng nhiều bảng chi tiết ra Excel, rồi gộp lại cho từng nhóm người nhận. Gần một giờ bấm chuột, thỉnh thoảng sai bộ lọc.</span></li>
+        <li><span lang="en"><b>Built:</b> a Playwright script that signs in, drives the slicers, exports each page to PDF, opens each table visual in focus mode and exports it, merges workbooks, snapshots PNGs from the PDFs, and logs every step with timings. Runs headless on a schedule; a failed step retries and reports instead of silently skipping.</span><span lang="vi"><b>Đã xây:</b> script Playwright tự đăng nhập, thao tác slicer, xuất từng trang PDF, mở từng bảng ở chế độ focus để xuất Excel, gộp workbook, cắt ảnh PNG từ PDF và log từng bước kèm thời gian. Chạy headless theo lịch; bước lỗi sẽ thử lại và báo thay vì bỏ qua âm thầm.</span></li>
+        <li><span lang="en"><b>Result:</b> reports are in the shared folder before the first person logs in; zero manual steps on normal days.</span><span lang="vi"><b>Kết quả:</b> báo cáo nằm sẵn trong thư mục chung trước khi người đầu tiên đăng nhập; ngày bình thường không cần thao tác tay.</span></li>
+      </ul>
+      <div class="pipeline">
+        <div><b>1</b><span lang="en">Sign in to Power BI Service</span><span lang="vi">Đăng nhập Power BI Service</span></div>
+        <div><b>2</b><span lang="en">Set date slicer: 1st of month → yesterday</span><span lang="vi">Đặt slicer: đầu tháng → hôm qua</span></div>
+        <div><b>3</b><span lang="en">Export pages to PDF per unit</span><span lang="vi">Xuất PDF từng đơn vị</span></div>
+        <div><b>4</b><span lang="en">Export table visuals to Excel, merge</span><span lang="vi">Xuất bảng ra Excel, gộp file</span></div>
+        <div><b>5</b><span lang="en">Snapshot PNGs, deliver to shared folder</span><span lang="vi">Cắt ảnh PNG, đẩy vào thư mục chung</span></div>
+      </div>
+      <p class="note"><span lang="en">No screenshots: the reports belong to the client. Happy to walk through the approach on a call and build the same for your reports.</span><span lang="vi">Không có ảnh chụp vì báo cáo thuộc về khách hàng. Có thể trao đổi cách làm qua call và dựng tương tự cho báo cáo của bạn.</span></p>
+    </article>
+  </section>
+
+  <section id="process">
+    <h2><span lang="en">How a project runs</span><span lang="vi">Một dự án diễn ra thế nào</span></h2>
+    <p class="sub"><span lang="en">Small scope first, then iterate. You always know what you get and when.</span><span lang="vi">Phạm vi nhỏ trước, rồi lặp. Bạn luôn biết mình nhận gì và khi nào.</span></p>
+    <div class="steps">
+      <div><h3><span lang="en">30-minute call</span><span lang="vi">Call 30 phút</span></h3><p><span lang="en">You show me the data and the questions it should answer. I confirm scope and a fixed price the same day.</span><span lang="vi">Bạn cho mình xem dữ liệu và câu hỏi cần trả lời. Mình chốt phạm vi và giá cố định trong ngày.</span></p></div>
+      <div><h3><span lang="en">Draft in 2-3 days</span><span lang="vi">Bản nháp sau 2-3 ngày</span></h3><p><span lang="en">A working first version on your real data (or a sample), so feedback is about substance, not slides.</span><span lang="vi">Bản chạy được trên dữ liệu thật (hoặc mẫu), để góp ý đi vào nội dung thay vì slide.</span></p></div>
+      <div><h3><span lang="en">Two revision rounds</span><span lang="vi">Hai vòng chỉnh sửa</span></h3><p><span lang="en">Included in every package. Larger changes are quoted before I start them.</span><span lang="vi">Có sẵn trong mọi gói. Thay đổi lớn sẽ báo giá trước khi làm.</span></p></div>
+      <div><h3><span lang="en">Handover</span><span lang="vi">Bàn giao</span></h3><p><span lang="en">Source files, a short recorded walkthrough, and 14 days of support for questions. Your files stay on an encrypted drive and are deleted after the project.</span><span lang="vi">File nguồn, video hướng dẫn ngắn và 14 ngày hỗ trợ câu hỏi. File của bạn nằm trên ổ mã hoá và được xoá sau dự án.</span></p></div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2><span lang="en">Let's talk about your data</span><span lang="vi">Trao đổi về dữ liệu của bạn</span></h2>
+    <p class="sub"><span lang="en">Based in Vietnam (GMT+7), comfortable working with teams in Asia, Europe and the US. Replies within one business day.</span><span lang="vi">Ở Việt Nam (GMT+7), làm việc thoải mái với đội ở châu Á, châu Âu và Mỹ. Phản hồi trong một ngày làm việc.</span></p>
+    <div class="contact">
+      <a class="btn" href="mailto:YOUR_EMAIL_HERE">Email</a>
+      <a class="btn ghost" href="https://www.upwork.com/freelancers/YOUR_UPWORK_ID" target="_blank" rel="noopener">Upwork</a>
+      <a class="btn ghost" href="https://github.com/minh-lgm" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn ghost" href="https://www.linkedin.com/in/YOUR_LINKEDIN" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span lang="en">© 2026 Minh. All screenshots use synthetic data; no client or employer information is shown.</span>
+    <span lang="vi">© 2026 Minh. Mọi ảnh chụp dùng dữ liệu giả lập; không hiển thị thông tin khách hàng hay nơi làm việc.</span>
+  </div>
+</footer>
+
+<script>
+  function setLang(l){
+    document.documentElement.setAttribute('data-lang', l);
+    document.documentElement.lang = l;
+    document.getElementById('btn-en').classList.toggle('on', l === 'en');
+    document.getElementById('btn-vi').classList.toggle('on', l === 'vi');
+    try { localStorage.setItem('lang', l); } catch (e) {}
+  }
+  try {
+    var saved = localStorage.getItem('lang');
+    if (saved === 'vi' || saved === 'en') setLang(saved);
+    else if ((navigator.language || '').toLowerCase().startsWith('vi')) setLang('vi');
+  } catch (e) {}
+</script>
+</body>
+</html>

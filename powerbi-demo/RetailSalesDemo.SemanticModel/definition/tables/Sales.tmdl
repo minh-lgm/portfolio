@@ -1,0 +1,85 @@
+/// Synthetic order lines for the retail demo. One row per order line.
+table Sales
+
+	column OrderID
+		dataType: string
+		summarizeBy: none
+		sourceColumn: OrderID
+
+	column OrderDate
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		summarizeBy: none
+		sourceColumn: OrderDate
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Region
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Region
+
+	column Province
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Province
+
+	column Channel
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Channel
+
+	column ProductCategory
+		dataType: string
+		summarizeBy: none
+		sourceColumn: ProductCategory
+
+	column Product
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Product
+
+	column SalesRep
+		dataType: string
+		summarizeBy: none
+		sourceColumn: SalesRep
+
+	column Quantity
+		dataType: int64
+		formatString: #,0
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+	column UnitPrice
+		dataType: double
+		formatString: $#,##0.00
+		summarizeBy: none
+		sourceColumn: UnitPrice
+
+	column Revenue
+		dataType: double
+		formatString: $#,##0.00
+		summarizeBy: sum
+		sourceColumn: Revenue
+
+	column Cost
+		dataType: double
+		formatString: $#,##0.00
+		summarizeBy: sum
+		sourceColumn: Cost
+
+	column Profit
+		dataType: double
+		formatString: $#,##0.00
+		summarizeBy: sum
+		sourceColumn: Profit
+
+	partition Sales = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents("D:\minh\Coderschool\GitHub\moneymaker\portfolio\powerbi-demo\data\sales_orders.csv"), [Delimiter = ",", Columns = 13, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+					Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+					Typed = Table.TransformColumnTypes(Promoted, {{"OrderID", type text}, {"OrderDate", type date}, {"Region", type text}, {"Province", type text}, {"Channel", type text}, {"ProductCategory", type text}, {"Product", type text}, {"SalesRep", type text}, {"Quantity", Int64.Type}, {"UnitPrice", type number}, {"Revenue", type number}, {"Cost", type number}, {"Profit", type number}}, "en-US")
+				in
+					Typed

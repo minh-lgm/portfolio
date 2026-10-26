@@ -1,0 +1,3 @@
+relationship Sales_OrderDate_to_Date
+	fromColumn: Sales.OrderDate
+	toColumn: Date.Date

@@ -1,0 +1,58 @@
+/// Calendar table covering the order history (contiguous days).
+table Date
+	dataCategory: Time
+
+	column Date
+		dataType: dateTime
+		isKey
+		formatString: yyyy-mm-dd
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Year
+
+	column 'Month Number'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Month Number
+
+	column Month
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Month
+		sortByColumn: 'Month Number'
+
+	column Quarter
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Quarter
+
+	column 'Year Month'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Year Month
+
+	partition Date = m
+		mode: import
+		source =
+				let
+					StartDate = #date(2025, 1, 1),
+					EndDate = #date(2026, 10, 31),
+					Dates = List.Dates(StartDate, Duration.Days(EndDate - StartDate) + 1, #duration(1, 0, 0, 0)),
+					AsTable = Table.FromList(Dates, Splitter.SplitByNothing(), {"Date"}),
+					Typed = Table.TransformColumnTypes(AsTable, {{"Date", type date}}),
+					AddYear = Table.AddColumn(Typed, "Year", each Date.Year([Date]), Int64.Type),
+					AddMonthNumber = Table.AddColumn(AddYear, "Month Number", each Date.Month([Date]), Int64.Type),
+					AddMonth = Table.AddColumn(AddMonthNumber, "Month", each Date.ToText([Date], [Format = "MMM", Culture = "en-US"]), type text),
+					AddQuarter = Table.AddColumn(AddMonth, "Quarter", each "Q" & Text.From(Date.QuarterOfYear([Date])), type text),
+					AddYearMonth = Table.AddColumn(AddQuarter, "Year Month", each Date.ToText([Date], [Format = "yyyy-MM", Culture = "en-US"]), type text)
+				in
+					AddYearMonth

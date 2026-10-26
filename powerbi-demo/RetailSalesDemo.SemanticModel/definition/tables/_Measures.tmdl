@@ -1,0 +1,76 @@
+/// Measure table: all KPIs used by the report live here.
+table _Measures
+
+	/// Sum of order-line revenue
+	measure 'Total Revenue' = SUM(Sales[Revenue])
+		formatString: $#,##0
+
+	/// Sum of order-line cost of goods
+	measure 'Total Cost' = SUM(Sales[Cost])
+		formatString: $#,##0
+
+	/// Revenue minus cost
+	measure 'Total Profit' = SUM(Sales[Profit])
+		formatString: $#,##0
+
+	/// Profit as a share of revenue
+	measure 'Margin %' = DIVIDE([Total Profit], [Total Revenue])
+		formatString: 0.0%
+
+	/// Distinct order count
+	measure Orders = DISTINCTCOUNT(Sales[OrderID])
+		formatString: #,##0
+
+	/// Units shipped
+	measure 'Units Sold' = SUM(Sales[Quantity])
+		formatString: #,##0
+
+	/// Revenue per order
+	measure 'Avg Order Value' = DIVIDE([Total Revenue], [Orders])
+		formatString: $#,##0
+
+	/// Revenue for the same period one year earlier
+	measure 'Revenue PY' = CALCULATE([Total Revenue], SAMEPERIODLASTYEAR('Date'[Date]))
+		formatString: $#,##0
+
+	/// Year-over-year revenue growth
+	measure 'Revenue YoY %' = DIVIDE([Total Revenue] - [Revenue PY], [Revenue PY])
+		formatString: +0.0%;-0.0%;0.0%
+
+	/// Profit for the same period one year earlier
+	measure 'Profit PY' = CALCULATE([Total Profit], SAMEPERIODLASTYEAR('Date'[Date]))
+		formatString: $#,##0
+
+	/// Year-over-year profit growth
+	measure 'Profit YoY %' = DIVIDE([Total Profit] - [Profit PY], [Profit PY])
+		formatString: +0.0%;-0.0%;0.0%
+
+	/// Margin % for the same period one year earlier
+	measure 'Margin % PY' = DIVIDE([Profit PY], [Revenue PY])
+		formatString: 0.0%
+
+	/// Margin change versus prior year, in percentage points
+	measure 'Margin vs PY (pts)' = ([Margin %] - [Margin % PY]) * 100
+		formatString: +0.0;-0.0;0.0
+
+	/// Orders for the same period one year earlier
+	measure 'Orders PY' = CALCULATE([Orders], SAMEPERIODLASTYEAR('Date'[Date]))
+		formatString: #,##0
+
+	/// Year-over-year growth in order count
+	measure 'Orders YoY %' = DIVIDE([Orders] - [Orders PY], [Orders PY])
+		formatString: +0.0%;-0.0%;0.0%
+
+	column Value
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: Value
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+					Source = #table(type table [Value = text], {})
+				in
+					Source
